@@ -1,0 +1,33 @@
+// ExternalLogger.java (Simulated external logger)
+public class ExternalLogger {
+    public void logMessage(String message) {
+        System.out.println("External Logger: " + message);
+    }
+}
+
+// LoggerAdapter.java
+public class LoggerAdapter {
+    private ExternalLogger externalLogger;
+
+    public LoggerAdapter(ExternalLogger externalLogger) {
+        this.externalLogger = externalLogger;
+    }
+
+    public void log(String message) {
+        externalLogger.logMessage(message);
+    }
+}
+
+// Main.java (updated)
+public class Main {
+    private static LoggerAdapter logger;
+    private static Scanner scanner;
+
+    public static void main(String[] args) {
+        logger = new LoggerAdapter(new ExternalLogger());
+        scanner = new Scanner(System.in);
+        VirtualClassroomManager manager = VirtualClassroomManager.getInstance();
+
+        // Rest of the main method remains unchanged
+    }
+}
