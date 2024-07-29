@@ -1,0 +1,73 @@
+// Observer.java
+public interface Observer {
+    void update(String message);
+}
+
+// Subject.java
+import java.util.ArrayList;
+import java.util.List;
+
+public interface Subject {
+    void registerObserver(Observer observer);
+    void removeObserver(Observer observer);
+    void notifyObservers(String message);
+}
+
+// Student.java
+public class Student implements Observer {
+    private String id;
+
+    public Student(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void update(String message) {
+        System.out.println("Student " + id + " received: " + message);
+    }
+}
+
+// Classroom.java (updated)
+public class Classroom implements Subject {
+    private String name;
+    private List<Student> students;
+    private List<Assignment> assignments;
+    private Map<String, List<Submission>> submissions;
+    private List<Observer> observers;
+
+    public Classroom(String name) {
+        this.name = name;
+        this.students = new ArrayList<>();
+        this.assignments = new ArrayList<>();
+        this.submissions = new HashMap<>();
+        this.observers = new ArrayList<>();
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(String message) {
+        for (Observer observer : observers) {
+            observer.update(message);
+        }
+    }
+
+    public void addAssignment(Assignment assignment) {
+        assignments.add(assignment);
+        notifyObservers("New assignment: " + assignment.getDetails());
+    }
+
+    // Other methods remain unchanged
+}
