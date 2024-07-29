@@ -1,0 +1,28 @@
+// AssignmentDecorator.java
+public abstract class AssignmentDecorator extends Assignment {
+    protected Assignment decoratedAssignment;
+
+    public AssignmentDecorator(Assignment decoratedAssignment) {
+        super(decoratedAssignment.getDetails());
+        this.decoratedAssignment = decoratedAssignment;
+    }
+
+    public String getDetails() {
+        return decoratedAssignment.getDetails();
+    }
+}
+
+// DeadlineAssignmentDecorator.java
+public class DeadlineAssignmentDecorator extends AssignmentDecorator {
+    private String deadline;
+
+    public DeadlineAssignmentDecorator(Assignment decoratedAssignment, String deadline) {
+        super(decoratedAssignment);
+        this.deadline = deadline;
+    }
+
+    @Override
+    public String getDetails() {
+        return super.getDetails() + " (Deadline: " + deadline + ")";
+    }
+}
