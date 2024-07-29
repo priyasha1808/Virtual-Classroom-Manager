@@ -1,0 +1,40 @@
+// Assignment.java
+public abstract class Assignment {
+    protected String details;
+
+    public Assignment(String details) {
+        this.details = details;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+}
+
+// HomeworkAssignment.java
+public class HomeworkAssignment extends Assignment {
+    public HomeworkAssignment(String details) {
+        super(details);
+    }
+}
+
+// ExamAssignment.java
+public class ExamAssignment extends Assignment {
+    public ExamAssignment(String details) {
+        super(details);
+    }
+}
+
+// AssignmentFactory.java
+public class AssignmentFactory {
+    public static Assignment createAssignment(String type, String details) {
+        switch (type) {
+            case "Homework":
+                return new HomeworkAssignment(details);
+            case "Exam":
+                return new ExamAssignment(details);
+            default:
+                throw new IllegalArgumentException("Unknown assignment type");
+        }
+    }
+}
