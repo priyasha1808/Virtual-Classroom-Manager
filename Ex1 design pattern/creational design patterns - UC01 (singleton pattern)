@@ -1,0 +1,16 @@
+public class VirtualClassroomManager {
+    private static VirtualClassroomManager instance;
+    private Map<String, Classroom> classrooms;
+
+    private VirtualClassroomManager() {
+        classrooms = new HashMap<>();
+    }
+
+    public static synchronized VirtualClassroomManager getInstance() {
+        if (instance == null) {
+            instance = new VirtualClassroomManager();
+        }
+        return instance;
+    }
+
+}
